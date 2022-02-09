@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
 
     public GameObject player;
     //public GameObject[] platforms;
-    private bool check;
+    private int platformNum;
 
     // Start is called before the first frame update
     void Start()
@@ -18,81 +18,58 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms"); //constantly renews the list of tagged objects
+        //GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms"); //constantly renews the list of tagged objects
+
 
         if (Input.GetKeyDown(KeyCode.A))
         {
+            GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms");
+            float minDist = Mathf.Infinity;
+            platformNum = -100;
             for (int i = 0; i < platforms.Length; i++) //platform i
             {
-                check = true; //true is default value
                 if (platforms[i].transform.position.y > player.transform.position.y 
                     && platforms[i].transform.position.x < 0) //check if i is above player and on left
                 {
-                     
-                    for (int j = 0; j < platforms.Length; j++) //platform j
+                    float dist = Vector3.Distance(platforms[i].transform.position, player.transform.position);
+                    if(dist < minDist)
                     {
-                        if (platforms[j].transform.position.x < 0 //check if j on the left
-                            && platforms[j].transform.position.y > player.transform.position.y) //check j higher than player
-                        {
-                            float temp1 = platforms[i].transform.position.y - player.transform.position.y; //dist between platform and player
-                            float temp2 = platforms[j].transform.position.y - player.transform.position.y;
-                            if (temp1 > temp2)
-                            {
-                                check = false;
-                            }
-                        }
+                        minDist = dist;
+                        platformNum = i;
                     }
-
-
-                    if (check == true)
-                    {
-                        player.transform.position = new Vector2(platforms[i].transform.position.x
-                            , platforms[i].transform.position.y + platforms[i].transform.localScale.y / 2  //magic happens
-                            + player.transform.localScale.y/2);
-                    }
-
                 }
-
             }
+            player.transform.position = new Vector2(platforms[platformNum].transform.position.x
+                , platforms[platformNum].transform.position.y + platforms[platformNum].transform.localScale.y / 2  //magic happens
+                + player.transform.localScale.y / 2);
+
+            platforms = null; //delete all objects inside
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
+            GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms");
+            float minDist = Mathf.Infinity;
+            platformNum = -100;
             for (int i = 0; i < platforms.Length; i++) //platform i
             {   
-                check = true; //true is default value
                 if (platforms[i].transform.position.y > player.transform.position.y
-                    && platforms[i].transform.position.x < 0) //check if its above player and on right
+                    && platforms[i].transform.position.x > 0) //check if its above player and on right
                 {
-                    //Debug.Log(platforms[i].transform.position.y + "   " + player.transform.position.y);
-                    for (int j = 0; j < platforms.Length; j++) //platform j
+                    float dist = Vector3.Distance(platforms[i].transform.position, player.transform.position);
+                    if (dist < minDist)
                     {
-                        if (platforms[j].transform.position.x > 0  //check if j on the left
-                            && platforms[j].transform.position.y > player.transform.position.y) //check j higher than player
-                        {
-                            //Debug.Log("Plat1, plat2" + platforms[i].transform.position.y + " " + platforms[j].transform.position.y);
-                            float temp1 = platforms[i].transform.position.y - player.transform.position.y; //dist between platform and player
-                            float temp2 = platforms[j].transform.position.y - player.transform.position.y;
-                            if (temp1 > temp2)
-                            {
-                                check = false;
-                            }
-                        }
+                        minDist = dist;
+                        platformNum = i;
                     }
-
-
-                    if (check == true)
-                    {
-                        player.transform.position = new Vector2(platforms[i].transform.position.x
-                            , platforms[i].transform.position.y + platforms[i].transform.localScale.y / 2    //magic happens
-                            + player.transform.localScale.y / 2);
-                    }
-
-
                 }
             }
+            player.transform.position = new Vector2(platforms[platformNum].transform.position.x
+                , platforms[platformNum].transform.position.y + platforms[platformNum].transform.localScale.y / 2  //magic happens
+                + player.transform.localScale.y / 2);
+
+            platforms = null; //delete all objects inside
         }
 
-        platforms = null; //delete all objects inside
     }
 }
