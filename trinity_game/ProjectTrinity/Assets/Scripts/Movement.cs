@@ -6,8 +6,12 @@ public class Movement : MonoBehaviour
 {
 
     public GameObject player;
+
+    public bool onPlatform = false;
+
     //public GameObject[] platforms;
     private int platformNum;
+    
 
     // Update is called once per frame
     void Update()
@@ -65,5 +69,22 @@ public class Movement : MonoBehaviour
             platforms = null; //delete all objects inside
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platforms") {
+            player.transform.parent = collision.gameObject.transform;
+            onPlatform = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platforms")
+        {
+            player.transform.parent = null;
+            onPlatform = false;
+        }
     }
 }
