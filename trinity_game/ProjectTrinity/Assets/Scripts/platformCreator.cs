@@ -5,6 +5,7 @@ using UnityEngine;
 public class platformCreator : MonoBehaviour
 {
     public GameObject platformPrefab;
+    public GameObject pickuppablePrefab;
     public float spawnDelay = 1.0f;
     public float speedup = 0.995f;
     public float current_platform_speed = 6.0f;
@@ -29,12 +30,24 @@ public class platformCreator : MonoBehaviour
     private void spawnPlatforms() {
         GameObject p1 = Instantiate(platformPrefab) as GameObject;
         GameObject p2 = Instantiate(platformPrefab) as GameObject;
+        GameObject pu = instantiatePickuppable();
+
         p1.transform.localScale = platformScale;
         p2.transform.localScale = platformScale;
         p1.transform.position = new Vector2(Random.Range(leftPlatform_leftBound,leftPlatform_rightBound), screenBounds.y * 1.5f);
         p2.transform.position = new Vector2(Random.Range(rightPlatform_leftBound, rightPlatform_rightBound), screenBounds.y * 1.5f);
         p1.GetComponent<platform>().setSpeed(current_platform_speed);
         p2.GetComponent<platform>().setSpeed(current_platform_speed);
+
+        int leftright = Random.Range(1, 3); // 50% left - 50% right
+        if (leftright == 1 && pu != null) {
+            pu.transform.position = new Vector2(p1.transform.position.x, p1.transform.position.y + screenBounds.y * 0.1f);
+            pu.transform.parent = p1.transform;
+        }
+        else if (leftright == 2 && pu != null){
+            pu.transform.position = new Vector2(p2.transform.position.x, p2.transform.position.y + screenBounds.y * 0.1f);
+            pu.transform.parent = p2.transform;
+        }
     }
 
     IEnumerator platformCreation() {
@@ -44,5 +57,14 @@ public class platformCreator : MonoBehaviour
             spawnDelay *= speedup;
             current_platform_speed /= speedup;
         }
+    }
+
+    GameObject instantiatePickuppable() {
+        int rand = Random.Range(1,5); // 25% chance to spawn
+        GameObject pu = null;
+        if (rand == 1) {
+            pu = Instantiate(pickuppablePrefab) as GameObject;
+        }
+        return pu;
     }
 }

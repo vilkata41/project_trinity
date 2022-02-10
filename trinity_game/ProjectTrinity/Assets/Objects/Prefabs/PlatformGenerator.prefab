@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 5797709772178454495, guid: 20ceec8a71af21c4ba7c60a4735d1403, type: 3}
+  pickuppablePrefab: {fileID: 5022300294496503058, guid: af31d088ea1dadc4ebd4f1a4fd3f7da2, type: 3}
   spawnDelay: 0.6
   speedup: 0.995
   current_platform_speed: 4
