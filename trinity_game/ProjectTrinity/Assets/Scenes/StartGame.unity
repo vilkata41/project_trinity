@@ -497,7 +497,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1137819387}
-    m_RemovedComponents: []
+    - target: {fileID: 8835591737909274516, guid: 6ec06c330204b71499769a5c22129c10, type: 3}
+      propertyPath: scoringText
+      value: 
+      objectReference: {fileID: 872701433}
+    m_RemovedComponents:
+    - {fileID: 8835591737909274516, guid: 6ec06c330204b71499769a5c22129c10, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6ec06c330204b71499769a5c22129c10, type: 3}
 --- !u!1 &1137819387 stripped
 GameObject:
