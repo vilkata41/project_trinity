@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -10,7 +11,19 @@ public class Movement : MonoBehaviour
     public bool onPlatform = false;
 
     private int platformNum;
+    
+    public Text scoringText;
+    
+    public float scoreAmount;
+    
+    public float pointsIncreasedPerPlatform;
 
+    void Update()
+    {
+        scoringText.text = (int)scoreAmount + "";
+
+
+    }
 
     public void MoveLeft() {
         GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms");
@@ -65,6 +78,10 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.tag == "Platforms") {
             player.transform.parent = collision.gameObject.transform;
             onPlatform = true;
+
+            scoreAmount++;
+            
+            
         }
     }
 
