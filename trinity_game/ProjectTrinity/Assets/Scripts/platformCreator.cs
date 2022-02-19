@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,24 @@ using UnityEngine;
 public class platformCreator : MonoBehaviour
 {
     public GameObject platformPrefab;
-    public GameObject pickuppablePrefab;
+    public GameObject powerUpI;
+    public GameObject powerUpD;
+    public GameObject powerUpB;
+
     public float spawnDelay = 1.0f;
     public float speedup = 0.995f;
     public float current_platform_speed = 6.0f;
+
     private Vector2 screenBounds;
     private Vector2 platformScale;
+
     private float leftPlatform_leftBound;
     private float leftPlatform_rightBound;
     private float rightPlatform_leftBound;
     private float rightPlatform_rightBound;
+
+    public GameObject[] powerUps;
+
 
     void Start()
     {
@@ -25,12 +34,13 @@ public class platformCreator : MonoBehaviour
         rightPlatform_leftBound = 0 + (screenBounds.x / 10 + platformScale.x / 2);
         rightPlatform_rightBound = screenBounds.x - (platformScale.x / 2 + screenBounds.x / 10);
         StartCoroutine(platformCreation());
+        powerUps =  new GameObject[] { powerUpD, powerUpI, powerUpB };
     }
 
     private void spawnPlatforms() {
         GameObject p1 = Instantiate(platformPrefab) as GameObject;
         GameObject p2 = Instantiate(platformPrefab) as GameObject;
-        GameObject pu = instantiatePickuppable();
+        GameObject pu = instantiatePowerUp();
 
         p1.transform.localScale = platformScale;
         p2.transform.localScale = platformScale;
@@ -59,11 +69,17 @@ public class platformCreator : MonoBehaviour
         }
     }
 
-    GameObject instantiatePickuppable() {
-        int rand = Random.Range(1,5); // 25% chance to spawn
+    GameObject instantiatePowerUp() {
+        int rand_placement = Random.Range(1,5); // 25% chance to spawn
+        int rand_pu = Random.Range(0, 3); // choose the powerup
+        //Debug.Log("rand_pu: " + rand_pu);
         GameObject pu = null;
-        if (rand == 1) {
-            pu = Instantiate(pickuppablePrefab) as GameObject;
+        //Debug.Log("0: " + powerUps[0] + " 1: " + powerUps[1] + " 2: " + powerUps[2]);
+        for (int i = 0; i < powerUps.Length; i++) //goes through all powerups
+        {
+            if (rand_placement == 1 && rand_pu == i) { //find power up on position "rand_pu" in the array
+                pu = Instantiate(powerUps[i]) as GameObject;
+            }
         }
         return pu;
     }

@@ -74,16 +74,26 @@ public class Movement : MonoBehaviour
     }
 
         private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Platforms") {
-            player.transform.parent = collision.gameObject.transform;
-            onPlatform = true;
+        {
+            if (collision.gameObject.tag == "Boost")
+            {
+                Debug.Log("Boosting NOW!!!!");
+            }
+            else if (collision.gameObject.tag == "Invincible")
+            {
+                Debug.Log("Invincible NOW!!!");
+            }
+            else if (collision.gameObject.tag == "DoublePoints")
+            {
+                Debug.Log("DoulePoints NOW!!!");
+            }
 
-            scoreAmount++;
-            
-            
+            if (collision.gameObject.tag == "Platforms") {
+                player.transform.parent = collision.gameObject.transform;
+                onPlatform = true;
+                scoreAmount++;
+            }
         }
-    }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
