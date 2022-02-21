@@ -203,6 +203,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 784724834}
     - target: {fileID: 8835591737909274516, guid: 6ec06c330204b71499769a5c22129c10, type: 3}
+      propertyPath: platforms
+      value: 
+      objectReference: {fileID: 1637592418}
+    - target: {fileID: 8835591737909274516, guid: 6ec06c330204b71499769a5c22129c10, type: 3}
       propertyPath: scoringText
       value: 
       objectReference: {fileID: 751044613}
@@ -986,6 +990,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522750688}
   m_CullTransparentMesh: 1
+--- !u!1 &1637592418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8526556370342854387, guid: 072c260d8fcafd14e96d3f392655c6c6, type: 3}
+  m_PrefabInstance: {fileID: 322749319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3370497649204925202
 PrefabInstance:
   m_ObjectHideFlags: 0
