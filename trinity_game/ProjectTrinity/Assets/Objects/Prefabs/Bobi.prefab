@@ -145,7 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  platforms: {fileID: 5797709772178454495, guid: 20ceec8a71af21c4ba7c60a4735d1403, type: 3}
   onPlatform: 0
   scoringText: {fileID: 0}
   scoreAmount: 0
   pointsIncreasedPerPlatform: 1
+  timeRemaining: 0
+  controllable: 1
