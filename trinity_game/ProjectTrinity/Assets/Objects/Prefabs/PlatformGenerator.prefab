@@ -47,6 +47,6 @@ MonoBehaviour:
   powerUpI: {fileID: 8317944018050735165, guid: e518b693ac2592e438dfc1a0a8efd069, type: 3}
   powerUpD: {fileID: 5022300294496503058, guid: af31d088ea1dadc4ebd4f1a4fd3f7da2, type: 3}
   powerUpB: {fileID: 776296252646089315, guid: 91bd9467163f6e449ba614017c735844, type: 3}
-  spawnDelay: 0.6
+  spawnDelay: 0.024
   speedup: 0.995
   current_platform_speed: 4

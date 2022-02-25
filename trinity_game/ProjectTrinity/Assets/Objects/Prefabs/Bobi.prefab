@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2870823152247567276}
   - component: {fileID: -4784341371340892747}
   - component: {fileID: 8835591737909274516}
+  - component: {fileID: 1639898425491722650}
   m_Layer: 0
   m_Name: Bobi
   m_TagString: Player
@@ -150,5 +151,16 @@ MonoBehaviour:
   scoringText: {fileID: 0}
   scoreAmount: 0
   pointsIncreasedPerPlatform: 1
-  timeRemaining: 0
-  controllable: 1
+--- !u!114 &1639898425491722650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870823152247567279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0df400649ec3f4f9c88abd727d0393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pGenerator: {fileID: 0}

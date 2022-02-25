@@ -22,7 +22,7 @@ public class platformCreator : MonoBehaviour
     private float rightPlatform_leftBound;
     private float rightPlatform_rightBound;
 
-    public GameObject[] powerUps;
+    private GameObject[] powerUps;
 
 
     void Start()
