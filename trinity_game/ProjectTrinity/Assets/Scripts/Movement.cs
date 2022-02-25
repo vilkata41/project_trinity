@@ -8,8 +8,6 @@ public class Movement : MonoBehaviour
 
     public GameObject player;
 
-    private Rigidbody2D playerRigid;
-
     private platformCreator pCreator;
 
     public GameObject platforms;
@@ -24,37 +22,26 @@ public class Movement : MonoBehaviour
     
     public float pointsIncreasedPerPlatform;
 
-    private float timeRemaining;
-
-    private bool controllable = true;
-
-    private float tempSpeed;
+    private bool controllable;
 
 
     void Awake()
     {
         pCreator = platforms.GetComponent<platformCreator>();
     }
+    private void Start()
+    {
+        controllable = true;
+    }
 
     void Update()
     {
         scoringText.text = (int)scoreAmount + "";
-        playerRigid = GetComponent<Rigidbody2D>();
-        if(controllable == false)
-        {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-            }
-            else
-            {
-                fixBoost(tempSpeed);
-            }
-        }
     }
 
     public void MoveLeft() {
-        if(controllable == true) { 
+        controllable = this.GetComponent<PowerUpController>().isControllable();
+        if(controllable) { 
         GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms");
         float minDist = Mathf.Infinity;
         platformNum = -100;
@@ -80,7 +67,8 @@ public class Movement : MonoBehaviour
      }
 
     public void MoveRight() {
-        if (controllable == true)
+        controllable = this.GetComponent<PowerUpController>().isControllable();
+        if (controllable)
         {
             GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platforms");
             float minDist = Mathf.Infinity;
@@ -121,55 +109,4 @@ public class Movement : MonoBehaviour
             onPlatform = false;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Boost") // TODO: 1) freeze player 2) platforms faster 
-        {
-            Destroy(collision.gameObject);
-            Debug.Log("Boosting NOW!!!!");
-            player.transform.parent = null;
-            playerRigid.constraints = RigidbodyConstraints2D.FreezePosition;
-            player.transform.GetComponent<BoxCollider2D>().enabled = false;
-            controllable = false;
-            timeRemaining = 3;
-
-            GameObject[] platformsOnScreen = GameObject.FindGameObjectsWithTag("Platforms"); //Getting the platforms constantly so we can speed up the platforms on the screen.
-            tempSpeed = pCreator.current_platform_speed;
-
-            pCreator.current_platform_speed = tempSpeed * 5;
-            pCreator.spawnDelay /= 5;
-
-            foreach (GameObject platform in platformsOnScreen)
-            {
-                platform.GetComponent<platform>().setSpeed(tempSpeed * 5);
-            }
-            
-        }
-        else if (collision.gameObject.tag == "Invincible") //TODO: Timer
-        {
-            Debug.Log("Invincible NOW!!!");
-        }
-        else if (collision.gameObject.tag == "DoublePoints") //TODO: Timer
-        {
-            Debug.Log("DoulePoints NOW!!!");
-        }
-    }
-
-    private void fixBoost(float tempSpeed)
-    {
-        controllable = true;
-        playerRigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-        player.transform.GetComponent<BoxCollider2D>().enabled = true;
-
-        GameObject[] platformsOnScreen = GameObject.FindGameObjectsWithTag("Platforms");
-        foreach (GameObject platform in platformsOnScreen)
-        {
-            platform.GetComponent<platform>().setSpeed(tempSpeed);
-        }
-
-        pCreator.current_platform_speed = tempSpeed;
-        pCreator.spawnDelay *= 5;
-    }
-
 }
