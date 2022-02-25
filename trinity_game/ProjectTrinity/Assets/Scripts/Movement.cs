@@ -102,11 +102,15 @@ public class Movement : MonoBehaviour
         controllable = this.GetComponent<PowerUpController>().isControllable();
         if (controllable)
         {
-            if (collision.gameObject.tag == "Platforms" && controllable)
+            if (collision.gameObject.tag == "Platforms" && controllable && !collision.gameObject.GetComponent<platform>().isRedPlatform()) // if it's a platform AND we can control the player AND the platform isn't red...
             {
                 player.transform.parent = collision.gameObject.transform;
                 onPlatform = true;
                 scoreAmount++;
+            }
+            else if (collision.gameObject.tag == "Platforms" && controllable && collision.gameObject.GetComponent<platform>().isRedPlatform()) //else if it's a platform AND we can control the player AND that platform is red...
+            {
+                Destroy(collision.gameObject); // Destroy red platform
             }
         }
     }
@@ -115,12 +119,11 @@ public class Movement : MonoBehaviour
         controllable = this.GetComponent<PowerUpController>().isControllable();
         if (controllable)
         {
-            if (collision.gameObject.tag == "Platforms")
+            if (collision.gameObject.tag == "Platforms") 
             {
                 player.transform.parent = null;
                 onPlatform = false;
             }
-
         }
     }
 }

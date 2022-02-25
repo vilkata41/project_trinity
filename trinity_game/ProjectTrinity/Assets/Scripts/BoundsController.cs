@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoundsController : MonoBehaviour
 {
@@ -9,8 +10,7 @@ public class BoundsController : MonoBehaviour
         if (collision.tag == "Player")
         {
             Debug.Log("Player is dead.");
-            Application.LoadLevel("StartGame");
-            
+            SceneManager.LoadScene("StartGame");
         }
     
     

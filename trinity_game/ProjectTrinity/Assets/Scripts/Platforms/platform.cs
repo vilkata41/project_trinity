@@ -7,6 +7,7 @@ public class platform : MonoBehaviour
     private float speed;
     private Vector2 screenBounds;
     private Camera cam;
+    private bool red;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +27,13 @@ public class platform : MonoBehaviour
 
     public void setSpeed(float newSpeed) {
         speed = newSpeed;
+    }
+
+    public void setRed() {
+        red = true;
+    }
+
+    public bool isRedPlatform() {
+        return red;
     }
 }
